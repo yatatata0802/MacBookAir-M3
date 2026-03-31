@@ -30,11 +30,11 @@ const MathInput: React.FC<MathInputProps> = ({ problem, onAnswer, useNumpad }) =
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto p-4">
-      <div className="bg-white rounded-3xl p-8 shadow-xl border-8 border-blue-400 mb-6 w-full text-center">
-        <div className="text-6xl font-bold text-gray-800 tracking-widest">
+    <div className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto p-2 md:p-4">
+      <div className="bg-white rounded-2xl p-4 md:p-8 shadow-xl border-4 md:border-8 border-blue-400 mb-4 md:mb-6 w-full text-center">
+        <div className="text-4xl md:text-6xl font-bold text-gray-800 tracking-widest">
           {problem.question} = {useNumpad ? (
-            <span className="inline-block min-w-[80px] border-b-4 border-gray-400 text-blue-600">
+            <span className="inline-block min-w-[60px] md:min-w-[80px] border-b-4 border-gray-400 text-blue-600">
               {inputValue || '?'}
             </span>
           ) : '?'}
@@ -48,13 +48,13 @@ const MathInput: React.FC<MathInputProps> = ({ problem, onAnswer, useNumpad }) =
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="grid grid-cols-2 gap-6 w-full max-w-lg"
+            className="grid grid-cols-2 gap-4 md:gap-6 w-full max-w-lg"
           >
             {problem.options.map((opt) => (
               <button
                 key={opt}
                 onClick={() => onAnswer(opt)}
-                className="bg-yellow-400 hover:bg-yellow-500 active:scale-95 transition-all text-white text-5xl font-bold py-10 rounded-3xl shadow-[0_10px_0_rgb(202,138,4)] border-4 border-white"
+                className="bg-yellow-400 hover:bg-yellow-500 active:scale-95 transition-all text-white text-3xl md:text-5xl font-bold py-6 md:py-10 rounded-2xl md:rounded-3xl shadow-[0_6px_0_rgb(202,138,4)] md:shadow-[0_10px_0_rgb(202,138,4)] border-2 md:border-4 border-white"
               >
                 {opt}
               </button>

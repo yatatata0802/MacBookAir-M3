@@ -227,30 +227,30 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-col h-screen"
+            className="flex flex-col h-[100dvh]"
           >
             {/* Top: Race View */}
-            <div className="p-4 bg-white/50 backdrop-blur-sm border-b-4 border-blue-200">
-              <div className="flex justify-between items-center mb-2 px-4">
-                <div className="flex items-center gap-4">
-                  <div className="bg-blue-600 text-white px-6 py-2 rounded-full text-2xl font-black italic shadow-md">
+            <div className="p-2 md:p-4 bg-white/50 backdrop-blur-sm border-b-4 border-blue-200">
+              <div className="flex justify-between items-center mb-1 md:mb-2 px-2 md:px-4">
+                <div className="flex items-center gap-2 md:gap-4">
+                  <div className="bg-blue-600 text-white px-4 md:px-6 py-1 md:py-2 rounded-full text-xl md:text-2xl font-black italic shadow-md">
                     {playerCar?.rank}位
                   </div>
-                  <div className="text-3xl font-black text-orange-500 flex items-center gap-2">
+                  <div className="text-2xl md:text-3xl font-black text-orange-500 flex items-center gap-1 md:gap-2">
                     <Zap fill="currentColor" />
                     {combo} COMBO!
                   </div>
                 </div>
                 
                 {/* Boost Gauge */}
-                <div className="flex items-center gap-4">
-                  <div className="w-64 h-8 bg-gray-200 rounded-full border-4 border-white shadow-inner relative overflow-hidden">
+                <div className="flex items-center gap-2 md:gap-4">
+                  <div className="w-32 md:w-64 h-6 md:h-8 bg-gray-200 rounded-full border-2 md:border-4 border-white shadow-inner relative overflow-hidden">
                     <motion.div 
                       className="h-full bg-gradient-to-r from-orange-400 to-yellow-300"
                       animate={{ width: `${boostGauge}%` }}
                     />
                     {boostGauge >= 50 && (
-                      <div className="absolute inset-0 flex items-center justify-center text-xs font-black text-white animate-pulse">
+                      <div className="absolute inset-0 flex items-center justify-center text-[10px] md:text-xs font-black text-white animate-pulse">
                         BOOST READY!
                       </div>
                     )}
@@ -259,11 +259,11 @@ export default function App() {
                     onMouseDown={handleBoostStart}
                     onTouchStart={handleBoostStart}
                     disabled={boostGauge < 50}
-                    className={`w-20 h-20 rounded-full flex items-center justify-center transition-all ${
+                    className={`w-14 h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all ${
                       boostGauge >= 50 ? 'bg-orange-500 shadow-lg scale-110 active:scale-95' : 'bg-gray-400 opacity-50'
                     }`}
                   >
-                    <Zap size={40} color="white" fill="white" />
+                    <Zap size={30} className="md:w-10 md:h-10" color="white" fill="white" />
                   </button>
                 </div>
               </div>
