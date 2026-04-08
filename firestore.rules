@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: users
+    // Document ID: {userId} (Firebase Auth UID)
+    // Fields:
+    //   - points: number (required)
+    //   - unlockedCharacters: list of strings (required)
+    //   - currentCharacter: string (required)
+    //   - stats: map (optional)
+    //   - updatedAt: timestamp (required)
+    // ===============================================================
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isValidUserProgress(data) {
+      return data.points is number && data.points >= 0 &&
+             data.unlockedCharacters is list &&
+             data.currentCharacter is string &&
+             data.updatedAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidUserProgress(request.resource.data);
+    }
+  }
+}

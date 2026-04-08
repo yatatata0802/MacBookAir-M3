@@ -1,0 +1,47 @@
+{
+  "entities": {
+    "UserProgress": {
+      "title": "User Progress",
+      "description": "Stores points, unlocked characters, and stats for a user.",
+      "type": "object",
+      "properties": {
+        "points": {
+          "type": "number",
+          "description": "Total points earned by the user."
+        },
+        "unlockedCharacters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of Pokemon IDs unlocked by the user."
+        },
+        "currentCharacter": {
+          "type": "string",
+          "description": "The ID of the currently selected Pokemon."
+        },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "totalProblems": { "type": "number" },
+            "correctAnswers": { "type": "number" },
+            "totalTime": { "type": "number" },
+            "weakTypes": { "type": "object" }
+          }
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last time the progress was saved."
+        }
+      },
+      "required": ["points", "unlockedCharacters", "currentCharacter", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProgress",
+      "description": "User progress data indexed by their Firebase Auth UID."
+    }
+  }
+}

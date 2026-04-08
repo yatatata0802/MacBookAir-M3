@@ -17,7 +17,7 @@ export type CarState = {
   rank: number;
 };
 
-export type GameState = 'start' | 'playing' | 'result' | 'stats' | 'garage';
+export type GameState = 'start' | 'playing' | 'result' | 'stats' | 'pokemon';
 
 export type UserStats = {
   totalProblems: number;
@@ -30,4 +30,5 @@ export type Unlockables = {
   characters: string[]; // IDs of unlocked pokemon
   currentCharacter: string; // ID of current pokemon
   points: number;
+  pokemonWins: { [id: string]: number }; // Number of 1st place wins for each pokemon
 };

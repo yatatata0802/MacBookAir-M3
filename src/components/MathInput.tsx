@@ -30,16 +30,21 @@ const MathInput: React.FC<MathInputProps> = ({ problem, onAnswer, useNumpad }) =
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto p-2 md:p-4">
-      <div className="bg-white rounded-2xl p-4 md:p-8 shadow-xl border-4 md:border-8 border-blue-400 mb-4 md:mb-6 w-full text-center">
-        <div className="text-4xl md:text-6xl font-bold text-gray-800 tracking-widest">
+    <div className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto p-4">
+      <motion.div 
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-white/20 mb-6 w-full text-center -skew-x-6 relative overflow-hidden"
+      >
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-white to-red-500" />
+        <div className="text-5xl md:text-7xl font-black text-white tracking-tighter italic drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
           {problem.question} = {useNumpad ? (
-            <span className="inline-block min-w-[60px] md:min-w-[80px] border-b-4 border-gray-400 text-blue-600">
+            <span className="inline-block min-w-[60px] md:min-w-[90px] border-b-8 border-blue-400 text-yellow-300">
               {inputValue || '?'}
             </span>
           ) : '?'}
         </div>
-      </div>
+      </motion.div>
 
       <AnimatePresence mode="wait">
         {!useNumpad ? (
@@ -50,11 +55,17 @@ const MathInput: React.FC<MathInputProps> = ({ problem, onAnswer, useNumpad }) =
             exit={{ opacity: 0, y: -20 }}
             className="grid grid-cols-2 gap-4 md:gap-6 w-full max-w-lg"
           >
-            {problem.options.map((opt) => (
+            {problem.options.map((opt, i) => (
               <button
                 key={opt}
                 onClick={() => onAnswer(opt)}
-                className="bg-yellow-400 hover:bg-yellow-500 active:scale-95 transition-all text-white text-3xl md:text-5xl font-bold py-6 md:py-10 rounded-2xl md:rounded-3xl shadow-[0_6px_0_rgb(202,138,4)] md:shadow-[0_10px_0_rgb(202,138,4)] border-2 md:border-4 border-white"
+                className={`
+                  ${i % 4 === 0 ? 'bg-red-500 hover:bg-red-400 shadow-[0_8px_0_rgb(153,27,27)]' : 
+                    i % 4 === 1 ? 'bg-blue-500 hover:bg-blue-400 shadow-[0_8px_0_rgb(30,58,138)]' :
+                    i % 4 === 2 ? 'bg-yellow-500 hover:bg-yellow-400 shadow-[0_8px_0_rgb(161,98,7)]' :
+                    'bg-green-500 hover:bg-green-400 shadow-[0_8px_0_rgb(21,128,61)]'}
+                  active:scale-95 active:translate-y-2 active:shadow-none transition-all text-white text-4xl md:text-6xl font-black py-6 md:py-10 rounded-2xl border-4 border-white/30 -skew-x-6 italic
+                `}
               >
                 {opt}
               </button>
@@ -72,20 +83,20 @@ const MathInput: React.FC<MathInputProps> = ({ problem, onAnswer, useNumpad }) =
               <button
                 key={num}
                 onClick={() => handleNumpadClick(num.toString())}
-                className="bg-green-400 hover:bg-green-500 active:scale-95 transition-all text-white text-3xl font-bold py-4 rounded-xl shadow-[0_6px_0_rgb(22,163,74)] border-2 border-white"
+                className="bg-white/10 hover:bg-white/20 active:scale-95 transition-all text-white text-4xl font-black py-6 rounded-2xl shadow-xl border-2 border-white/20 -skew-x-6 italic"
               >
                 {num}
               </button>
             ))}
             <button
               onClick={() => handleNumpadClick('けす')}
-              className="bg-red-400 hover:bg-red-500 active:scale-95 transition-all text-white text-xl font-bold py-4 rounded-xl shadow-[0_6px_0_rgb(220,38,38)] border-2 border-white col-span-1"
+              className="bg-red-600 hover:bg-red-500 active:scale-95 transition-all text-white text-2xl font-black py-6 rounded-2xl shadow-xl border-2 border-white/20 col-span-1 -skew-x-6 italic"
             >
-              けす
+              DEL
             </button>
             <button
               onClick={() => handleNumpadClick('OK')}
-              className="bg-blue-500 hover:bg-blue-600 active:scale-95 transition-all text-white text-2xl font-bold py-4 rounded-xl shadow-[0_6px_0_rgb(37,99,235)] border-2 border-white col-span-1"
+              className="bg-blue-600 hover:bg-blue-500 active:scale-95 transition-all text-white text-3xl font-black py-6 rounded-2xl shadow-xl border-2 border-white/20 col-span-1 -skew-x-6 italic"
             >
               OK
             </button>
